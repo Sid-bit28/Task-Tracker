@@ -25,6 +25,10 @@ public class Item {
         return id;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
     public String toJson() {
         return "{\"id\":\"" + id + "\", \"description\":\"" + description.strip() + "\", \"status\":\"" + status.toString() +
                 "\", \"createdAt\":\"" + createdAt.format(formatter) + "\", \"updatedAt\":\"" + updatedAt.format(formatter) + "\"}";
@@ -60,11 +64,22 @@ public class Item {
         this.updatedAt = LocalDateTime.now();
     }
 
+    public void markInProgress() {
+        this.status = Status.IN_PROGRESS;
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public void markDone() {
+        this.status = Status.Done;
+        this.updatedAt = LocalDateTime.now();
+    }
+
     @Override
     public String toString() {
         return "Item{" +
-                "description='" + description + '\'' +
-                ", status='" + status + '\'' +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", status=" + status +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';

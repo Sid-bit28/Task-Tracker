@@ -35,6 +35,36 @@ public class Main {
                 taskManager.deleteTask(args[1]);
                 System.out.println("Task deleted successfully (ID: " + args[1] + ")");
                 break;
+            case "mark-in-progress":
+                if(args.length < 2) {
+                    System.out.println("Usage: Main mark-in-progress <id>");
+                    return;
+                }
+                taskManager.markInProgress(args[1]);
+                System.out.println("Task marked in progress successfully (ID: " + args[1] + ")");
+                break;
+            case "mark-done":
+                if(args.length < 2) {
+                    System.out.println("Usage: Main mark-done <id>");
+                    return;
+                }
+                taskManager.markDone(args[1]);
+                System.out.println("Task marked done successfully (ID: " + args[1] + ")");
+                break;
+            case "list":
+                if(args.length < 2) {
+                    taskManager.listTasks("All");
+                }else {
+                    Status filterStatus;
+                    try {
+                        filterStatus = Status.valueOf(args[1].toUpperCase().replace("-", "_"));
+                    }catch(IllegalArgumentException e) {
+                        System.out.println("Invalid status: " + args[1]);
+                        return;
+                    }
+                    taskManager.listTasks(filterStatus.toString());
+                }
+                break;
             default:
                 System.out.println("Unknown command: " + taskName);
         }

@@ -76,6 +76,25 @@ public class TaskManager {
         tasks.remove(item);
     }
 
+    public void markInProgress(String id) {
+        Item item = findItem(id).orElseThrow(() -> new IllegalArgumentException("Task with ID " + id + " not found"));
+        item.markInProgress();
+    }
+
+    public void markDone(String id) {
+        Item item = findItem(id).orElseThrow(() -> new IllegalArgumentException("Task with ID " + id + " not found"));
+        item.markDone();
+    }
+
+    public void listTasks(String type) {
+        for(Item item: tasks) {
+            String status = item.getStatus().toString();
+            if(type.equals("All") || status.equals(type)) {
+                System.out.println(item.toString());
+            }
+        }
+    }
+
     public Optional<Item> findItem(String id) {
         return tasks.stream().filter((item) -> item.getId() == Integer.parseInt(id)).findFirst();
     }
